@@ -4,9 +4,11 @@ import { Dashboard } from "../components/views/Dashboard";
 import { Matchmaking } from "../components/views/Matchmaking";
 import { DebateArena } from "../components/views/DebateArena";
 import { Analysis } from "../components/views/Analysis";
+import { Concept } from "../components/views/Concept";
+import { Profile } from "../components/views/Profile";
 import { AnimatePresence, motion } from "motion/react";
 
-type ViewState = "landing" | "dashboard" | "matchmaking" | "arena" | "analysis";
+type ViewState = "landing" | "dashboard" | "matchmaking" | "arena" | "analysis" | "concept" | "profile";
 type GameMode = "training" | "casual" | "ranked";
 
 export default function App() {
@@ -42,6 +44,18 @@ export default function App() {
     setView("dashboard");
   };
 
+  const handleConcept = () => {
+    setView("concept");
+  };
+
+  const handleProfile = () => {
+    setView("profile");
+  };
+
+  const handleBackToLanding = () => {
+    setView("landing");
+  };
+
   return (
     <div className="bg-slate-50 dark:bg-slate-950 min-h-screen text-slate-900 dark:text-slate-100 font-sans">
       <AnimatePresence mode="wait">
@@ -53,7 +67,7 @@ export default function App() {
             exit={{ opacity: 0 }}
             className="absolute inset-0"
           >
-            <Landing onLogin={handleLogin} />
+            <Landing onLogin={handleLogin} onConcept={handleConcept} />
           </motion.div>
         )}
 
@@ -65,7 +79,7 @@ export default function App() {
             exit={{ opacity: 0, x: -20 }}
             className="absolute inset-0"
           >
-            <Dashboard onSelectMode={handleSelectMode} username={user.username} />
+            <Dashboard onSelectMode={handleSelectMode} username={user.username} onConcept={handleConcept} onProfile={handleProfile} />
           </motion.div>
         )}
 
@@ -102,6 +116,30 @@ export default function App() {
             className="absolute inset-0 overflow-y-auto"
           >
             <Analysis data={lastGameData} onHome={handleHome} />
+          </motion.div>
+        )}
+
+        {view === "concept" && (
+          <motion.div
+            key="concept"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
+            className="absolute inset-0 overflow-y-auto"
+          >
+            <Concept onBack={handleBackToLanding} onGetStarted={handleLogin} />
+          </motion.div>
+        )}
+
+        {view === "profile" && (
+          <motion.div
+            key="profile"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
+            className="absolute inset-0 overflow-y-auto"
+          >
+            <Profile onBack={handleHome} username={user.username} />
           </motion.div>
         )}
       </AnimatePresence>

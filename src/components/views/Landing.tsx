@@ -5,9 +5,10 @@ import { ArrowRight, Gavel, Sparkles } from "lucide-react";
 
 interface LandingProps {
   onLogin: () => void;
+  onConcept?: () => void;
 }
 
-export function Landing({ onLogin }: LandingProps) {
+export function Landing({ onLogin, onConcept }: LandingProps) {
   return (
     <div className="relative min-h-screen flex flex-col items-center justify-center bg-black overflow-hidden">
       {/* Background Image with Overlay */}
@@ -55,6 +56,7 @@ export function Landing({ onLogin }: LandingProps) {
           <Button 
             variant="outline" 
             size="lg" 
+            onClick={onConcept}
             className="border-white/20 text-white hover:bg-white/10 px-8 py-6 text-lg rounded-full font-semibold backdrop-blur-sm"
           >
             Découvrir le concept

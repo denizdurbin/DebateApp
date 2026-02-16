@@ -7,9 +7,11 @@ import { Bot, Swords, Trophy, History, User } from "lucide-react";
 interface DashboardProps {
   onSelectMode: (mode: "training" | "casual" | "ranked") => void;
   username: string;
+  onProfile?: () => void;
+  onConcept?: () => void;
 }
 
-export function Dashboard({ onSelectMode, username }: DashboardProps) {
+export function Dashboard({ onSelectMode, username, onProfile, onConcept }: DashboardProps) {
   return (
     <div className="min-h-screen bg-slate-50 dark:bg-slate-950 p-8">
       <header className="flex justify-between items-center mb-12">
@@ -20,7 +22,7 @@ export function Dashboard({ onSelectMode, username }: DashboardProps) {
             <Button variant="ghost" size="icon">
                 <History className="h-5 w-5" />
             </Button>
-            <Button variant="ghost" size="icon">
+            <Button variant="ghost" size="icon" onClick={onProfile}>
                 <User className="h-5 w-5" />
             </Button>
         </div>
